@@ -1,0 +1,26 @@
+# Clojure / Leiningen / deps.edn
+.cpcache/
+.nrepl-port
+.lein-repl-history
+.lein-plugins/
+.lein-failures
+target/
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+
+# Storage
+shared/*
+!shared/.gitkeep
+uploads/*
+!uploads/.gitkeep
+
+# IDEs
+.idea/
+.vscode/
+.calva/
+.lsp/
+*.iml
+*~
+.#*

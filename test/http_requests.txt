@@ -1,0 +1,6 @@
+# homepage
+GET http://localhost:8080/
+
+
+# api
+GET http://localhost:8080/api/files?path=Downloads
