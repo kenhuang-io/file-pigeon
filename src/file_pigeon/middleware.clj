@@ -69,7 +69,7 @@
              :body (str "<h1>500 Internal Server Error</h1><pre>" (.getMessage t) "</pre>")})) ))))
 
 (defn wrap-app-stack
-  "Composes the full Ring middleware pipeline for File Pigeon."
+  "Composes the full Ring middleware pipeline."
   [handler]
   (-> handler
       wrap-json-body

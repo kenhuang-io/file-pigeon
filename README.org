@@ -4,54 +4,36 @@
 
 A fast, lightweight web app for exploring, uploading, and downloading files inside local networks, Wi-Fi intranets, and home labs.
 
-* Tech Stack
+#+HTML: <img src="./screenshots/web-ui.png" width="500">
 
-- *Ring* (~ring/ring-core~, ~ring/ring-jetty-adapter~, ~ring/ring-defaults~): HTTP abstraction and high-performance embedded Jetty web server.
-- *Compojure* (~compojure/compojure~): Elegant, concise routing library for endpoints.
-- *Cheshire* (~cheshire/cheshire~): Fast JSON encoding and decoding for the REST API.
-- *ZXing* (~com.google.zxing~): QR code generator for console ANSI display and PNG HTTP endpoints.
-- *Vanilla HTML5 / CSS3 / JS*: Clean, responsive, self-contained UI with zero external CDN dependencies (works completely offline on local intranets).
+Imagine this, you don't have a USB stick (or an extra USB disk) at hand, and you want to sync files from one device (a computer, a phone, etc.) to another, and you want a dead simple solution, File Pigeon is right for you.
 
 * Features
 
-- [X] *Home Directory Browsing*: Defaults to serving the user's home directory (~user.home~), displaying both folders and files.
-- [X] *Clickable Directories*: Seamlessly click into directories (~/?path=...~) to change the listing directory, with ~.. (Parent Directory)~ navigation.
-- [X] *Breadcrumb Navigation*: Interactive breadcrumb trail (~Home / workspace / side-projects~) for instant jump navigation.
-- [X] *Real-time Search Filter*: Client-side instant filter to quickly find files and folders in the current directory.
-- [X] *Direct Downloads*: Direct file download links with content-disposition and automatic MIME type detection.
-- [X] *Targeted Uploads*: Drag-and-drop dropzone to upload files directly into the currently viewed directory.
-- [X] *Generating QR Codes*:
+- *Directory Browsing*: Defaults to serving the user's home directory, displaying both folders and files.
+  - Seamlessly click into directories to change the listing directory, with ~.. (Parent Directory)~ navigation.
+  - Interactive breadcrumb trail for instant jump navigation.
+  - Client-side instant filter to quickly find files and folders in the current directory.
+  - Canonical path validation ensuring access stays safely within the configured root directory.
+- *Downloads*: Direct file download links with content-disposition and automatic MIME type detection.
+- *Uploads*: Drag-and-drop dropzone to upload files directly into the currently viewed directory.
+- *QR Codes*:
   - Rendered in terminal with Unicode half-block characters on server startup for instant phone connection.
-  - Interactive mobile QR modal on the Web dashboard (~/qr~ endpoint).
-- [X] *LAN Auto-Discovery*: Automatically detects local network IPv4 interfaces (~wlan~, ~eth~, etc.) and prints accessible LAN URLs.
-- [X] *Directory Traversal Security*: Canonical path validation ensuring access stays safely within the configured root directory.
+  - Interactive mobile QR modal on the Web dashboard.
+- *LAN Auto-Discovery*: Automatically detects local network IPv4 interfaces (~wlan~, ~eth~, etc.) and prints accessible LAN URLs.
+* Command Line Options
 
-* Project Structure
-
-#+BEGIN_SRC
-file-pigeon/
-├── deps.edn                    ; Clojure CLI tools.deps configuration
-├── project.clj                 ; Leiningen project definition
-├── bb.edn                      ; Babashka tasks
-├── src/file_pigeon/
-│   ├── core.clj                ; CLI entrypoint, argument parsing, startup banner & QR
-│   ├── server.clj              ; Ring Jetty server lifecycle (start/stop/restart)
-│   ├── routes.clj              ; Compojure routing (web UI, REST API, downloads, QR)
-│   ├── middleware.clj          ; Ring middleware stack (params, multipart, CORS, logs)
-│   ├── storage.clj             ; File & directory browsing, breadcrumbs, path resolution
-│   ├── network.clj             ; Network interface & LAN IP discovery
-│   ├── qr.clj                  ; ZXing QR generator (terminal ANSI & PNG)
-│   └── views.clj               ; Standalone responsive Web UI explorer
-└── test/file_pigeon/
-    ├── test_runner.clj         ; Test suite runner
-    ├── network_test.clj        ; Network discovery unit tests
-    ├── storage_test.clj        ; Storage, directory traversal, and breadcrumbs tests
-    ├── qr_test.clj             ; QR generator unit tests
-    └── routes_test.clj         ; Compojure routes & Ring mock integration tests
+#+BEGIN_SRC text
+  -p, --port PORT  8080         Port to listen on (or via PORT env var)
+  -H, --host HOST  0.0.0.0      Host interface to bind on (0.0.0.0 for LAN access)
+  -d, --dir DIR    $HOME        Directory for browsing and sharing files (defaults to home directory)
+      --no-qr                   Suppress terminal QR code display
+  -h, --help                    Display usage information
 #+END_SRC
-
 * Getting Started
-
+Download the jar file, and run it:
+=java -jar /path/to/file-pigeon-0.1.0-SNAPSHOT-standalone.jar=
+* Development
 ** Prerequisites
 
 Ensure you have either *Clojure CLI* (~clojure~ / ~clj~) or *Leiningen* (~lein~) installed with Java 11+.
@@ -61,34 +43,17 @@ Ensure you have either *Clojure CLI* (~clojure~ / ~clj~) or *Leiningen* (~lein~)
 Using Leiningen:
 #+BEGIN_SRC bash
 lein run
+# Or, with custom port and directory
+lein run -- -p 9090 -d /path/to/folder
 #+END_SRC
 
 Using Clojure CLI:
 #+BEGIN_SRC bash
 clojure -M:run
 #+END_SRC
-
-Using Babashka:
-#+BEGIN_SRC bash
-bb run
-#+END_SRC
-
-** Command Line Options
-
-#+BEGIN_SRC text
-  -p, --port PORT  8080         Port to listen on (or via PORT env var)
-  -H, --host HOST  0.0.0.0      Host interface to bind on (0.0.0.0 for LAN access)
-  -d, --dir DIR    $HOME        Directory for browsing and sharing files (defaults to home directory)
-      --no-qr                   Suppress terminal QR code display
-  -h, --help                    Display usage information
-#+END_SRC
-
-Example with custom port and directory:
-#+BEGIN_SRC bash
-lein run -- -p 9090 -d /path/to/folder
-#+END_SRC
-
-* API Endpoints
+** Building
+=lein uberjar=
+** RESTful API Endpoints
 
 | Method | Path               | Description                                    | Response Format |
 |--------+--------------------+------------------------------------------------+-----------------|
@@ -102,9 +67,16 @@ lein run -- -p 9090 -d /path/to/folder
 | GET    | ~/qr~              | PNG QR Code image for the primary LAN address  | ~image/png~     |
 | GET    | ~/qr/text~         | Plaintext LAN URL encoded in the QR code       | ~text/plain~    |
 
-* Testing
+** Testing
 
 Run the full test suite with Leiningen:
 #+BEGIN_SRC bash
 lein test
 #+END_SRC
+** Tech Stack
+
+- *Ring* (~ring/ring-core~, ~ring/ring-jetty-adapter~, ~ring/ring-defaults~): HTTP abstraction and high-performance embedded Jetty web server.
+- *Compojure* (~compojure/compojure~): Elegant, concise routing library for endpoints.
+- *Cheshire* (~cheshire/cheshire~): Fast JSON encoding and decoding for the REST API.
+- *ZXing* (~com.google.zxing~): QR code generator for console ANSI display and PNG HTTP endpoints.
+- *Vanilla HTML5 / CSS3 / JS*: Clean, responsive, self-contained UI with zero external CDN dependencies (works completely offline on local intranets).

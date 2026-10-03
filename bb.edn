@@ -1,8 +1,0 @@
-{:paths ["src"]
- :tasks
- {:run {:doc "Run the Clojure HTTP server with Clojure CLI"
-        :task (shell "clojure -M:run" *command-line-args*)}
-  :test {:doc "Run the test suite"
-         :task (shell "clojure -M:test")}
-  :clean {:doc "Clean build artifacts and caches"
-          :task (shell "rm -rf target .cpcache .lein-failures")}}}
