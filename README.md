@@ -3,15 +3,15 @@ files inside local networks, Wi-Fi intranets, and home labs.
 
 <img src="./screenshots/web-ui.png" width="500">
 
-Imagine this, you don\'t have a USB stick (or an extra USB disk) at
-hand, and you want to sync files from one device (a computer, a phone,
-etc.) to another, and you want a dead simple solution, File Pigeon is
-right for you.
+Imagine this, you don't have a USB stick (or an extra USB disk) at hand,
+and you want to sync files from one device (a computer, a phone, etc.)
+to another, and you want a dead simple solution, File Pigeon is right
+for you.
 
 # Features
 
-- **Directory Browsing**: Defaults to serving the user\'s home
-  directory, displaying both folders and files.
+- **Directory Browsing**: Defaults to serving the user's home directory,
+  displaying both folders and files.
   - Seamlessly click into directories to change the listing directory,
     with `.. (Parent Directory)` navigation.
   - Interactive breadcrumb trail for instant jump navigation.
@@ -43,7 +43,7 @@ right for you.
 # Getting Started
 
 Download the jar file, and run it:
-`java -jar /path/to/file-pigeon-0.1.0-SNAPSHOT-standalone.jar`{.verbatim}
+`java -jar /path/to/file-pigeon-0.1.0-SNAPSHOT-standalone.jar`
 
 # Development
 
@@ -70,21 +70,21 @@ clojure -M:run
 
 ## Building
 
-`lein uberjar`{.verbatim}
+`lein uberjar`
 
 ## RESTful API Endpoints
 
-  Method   Path                 Description                                     Response Format
-  -------- -------------------- ----------------------------------------------- -----------------
-  GET      `/?path=...`         Web UI explorer (browses current path)          HTML
-  GET      `/api/status`        Server status, uptime, storage, and LAN IPs     JSON (Cheshire)
-  GET      `/api/files?path=`   JSON list of files & directories with crumbs    JSON (Cheshire)
-  POST     `/api/upload`        Multipart file upload into current directory    JSON (Cheshire)
-  GET      `/download?path=`    Stream or download file from relative path      Binary / Stream
-  GET      `/files/:filename`   Stream or download file by filename or path     Binary / Stream
-  DELETE   `/api/files?path=`   Delete a file from the directory                JSON (Cheshire)
-  GET      `/qr`                PNG QR Code image for the primary LAN address   `image/png`
-  GET      `/qr/text`           Plaintext LAN URL encoded in the QR code        `text/plain`
+| Method | Path | Description | Response Format |
+|----|----|----|----|
+| GET | `/?path=...` | Web UI explorer (browses current path) | HTML |
+| GET | `/api/status` | Server status, uptime, storage, and LAN IPs | JSON (Cheshire) |
+| GET | `/api/files?path=` | JSON list of files & directories with crumbs | JSON (Cheshire) |
+| POST | `/api/upload` | Multipart file upload into current directory | JSON (Cheshire) |
+| GET | `/download?path=` | Stream or download file from relative path | Binary / Stream |
+| GET | `/files/:filename` | Stream or download file by filename or path | Binary / Stream |
+| DELETE | `/api/files?path=` | Delete a file from the directory | JSON (Cheshire) |
+| GET | `/qr` | PNG QR Code image for the primary LAN address | `image/png` |
+| GET | `/qr/text` | Plaintext LAN URL encoded in the QR code | `text/plain` |
 
 ## Testing
 
