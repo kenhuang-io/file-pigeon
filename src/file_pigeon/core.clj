@@ -18,7 +18,7 @@
     :default (or (System/getenv "HOST") "0.0.0.0")]
    ["-d" "--dir DIR" "Directory for browsing and sharing files"
     :id :storage-dir
-    :default (or (System/getenv "SHARED_DIR") (System/getProperty "user.home"))]
+    :default (System/getProperty "user.home")]
    [nil "--no-qr" "Suppress terminal QR code display"
     :default false]
    ["-h" "--help" "Display this usage message"]])
@@ -98,7 +98,7 @@
 (defn start!
   ([] (start! {}))
   ([opts]
-   (let [default-dir (or (System/getenv "SHARED_DIR") (System/getProperty "user.home"))
+   (let [default-dir (System/getProperty "user.home")
          options (merge {:port 8080 :host "0.0.0.0" :storage-dir default-dir} opts)
          srv (server/start-server (assoc options :join? false))]
      (print-banner options)

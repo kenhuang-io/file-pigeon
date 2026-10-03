@@ -33,7 +33,6 @@ file-pigeon/
 ├── deps.edn                    ; Clojure CLI tools.deps configuration
 ├── project.clj                 ; Leiningen project definition
 ├── bb.edn                      ; Babashka tasks
-├── shared/                     ; Shared folder placeholder
 ├── src/file_pigeon/
 │   ├── core.clj                ; CLI entrypoint, argument parsing, startup banner & QR
 │   ├── server.clj              ; Ring Jetty server lifecycle (start/stop/restart)

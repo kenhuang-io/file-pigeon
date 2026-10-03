@@ -17,7 +17,7 @@
    Options:
    - :port (int, default 8080)
    - :host (string, default \"0.0.0.0\")
-   - :storage-dir (string, default \"./shared\")
+   - :storage-dir (string, default HOME)
    - :join? (bool, default false)"
   [{:keys [host port storage-dir dir join?]
     :or {host "0.0.0.0"
