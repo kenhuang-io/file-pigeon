@@ -1,7 +1,3 @@
-#+TITLE: File Pigeon
-#+AUTHOR: Ken Huang
-#+DESCRIPTION: A fast, lightweight Clojure web app for local network HTTP file sharing and exploration
-
 A fast, lightweight web app for exploring, uploading, and downloading files inside local networks, Wi-Fi intranets, and home labs.
 
 #+HTML: <img src="./screenshots/web-ui.png" width="500">
