@@ -1,7 +1,7 @@
 A fast, lightweight web app for exploring, uploading, and downloading
 files inside local networks, Wi-Fi intranets, and home labs.
 
-<img src="./screenshots/web-ui.png" width="500">
+<img src="./screenshots/web-ui.png" width="500" alt="The Web UI" style="display: block; margin-left: auto; margin-right: auto;" >
 
 Imagine this, you don't have a USB stick (or an extra USB disk) at hand,
 and you want to sync files from one device (a computer, a phone, etc.)
