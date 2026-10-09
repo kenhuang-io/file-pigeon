@@ -45,6 +45,8 @@ for you.
 Download the jar file, and run it:
 `java -jar /path/to/file-pigeon-0.1.0-SNAPSHOT-standalone.jar`
 
+<img src="./screenshots/cli-launch.png" width="500" alt="The CLI" style="display: block; margin-left: auto; margin-right: auto;" >
+
 # Development
 
 ## Prerequisites
